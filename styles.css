@@ -277,14 +277,11 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   aspect-ratio: 4 / 5;
   margin: 0 0 clamp(20px, 4vw, 48px);
   overflow: hidden;
-  /* Fundo do retrato: aparece nas zonas transparentes do PNG (acima dos
-     ombros, laterais da cabeça) e dá o contexto de "foto" */
-  background:
-    radial-gradient(120% 90% at 50% 0%, #fbf7ef 0%, #efe6d4 55%, #e6dac4 100%);
+  /* Mesmo branco dos cards de plano (#fffdf9) — coerência com o resto
+     da página; as zonas transparentes do PNG mostram esse fundo limpo */
+  background: #fffdf9;
   border: 1px solid var(--line);
-  box-shadow:
-    0 30px 60px -32px rgba(60,50,35,.34),
-    inset 0 1px 0 rgba(255,255,255,.6);
+  box-shadow: 0 18px 40px -28px rgba(60,50,35,.18);
   animation: fadeUp 1.3s .4s both;
 }
 .hero__figure img {
@@ -314,7 +311,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   gap: 2px;
   padding: 32px 18px 14px;
   /* Véu claro só na base p/ legenda legível sobre a camiseta escura */
-  background: linear-gradient(to top, rgba(247,244,238,.96) 0%, rgba(247,244,238,.82) 55%, transparent 100%);
+  background: linear-gradient(to top, rgba(255,253,249,.97) 0%, rgba(255,253,249,.85) 55%, transparent 100%);
 }
 .hero__caption-name {
   font-family: var(--serif);
