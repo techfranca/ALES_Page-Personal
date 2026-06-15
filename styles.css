@@ -136,62 +136,16 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
 }
 .hero__inner {
   position: relative;
+  height: 100%;
   width: 100%;
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 0 var(--pad);
   display: grid;
-  grid-template-columns: 1.15fr .9fr;
-  gap: clamp(28px, 5vw, 72px);
+  grid-template-columns: 1.15fr .85fr;
+  gap: clamp(32px, 5vw, 80px);
   align-items: end;
   z-index: 2;
-}
-
-/* Fundo decorativo (monograma + anel) */
-.hero__bg {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-.hero__monogram {
-  position: absolute;
-  right: clamp(-40px, -3vw, -10px);
-  top: 8%;
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(280px, 38vw, 540px);
-  line-height: .8;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(131,102,54,.22);
-  letter-spacing: -0.04em;
-  user-select: none;
-}
-.hero__ring {
-  position: absolute;
-  right: 8%;
-  bottom: 8%;
-  width: clamp(380px, 42vw, 620px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(131,102,54,.18);
-  border-radius: 50%;
-}
-.hero__ring::after {
-  content: "";
-  position: absolute; inset: 6%;
-  border: 1px dashed rgba(131,102,54,.13);
-  border-radius: 50%;
-}
-
-/* Linha divisória onde a foto se apoia */
-.hero__divider {
-  position: absolute;
-  left: var(--pad); right: var(--pad);
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--line) 18%, var(--line) 82%, transparent);
-  z-index: 3;
 }
 
 /* Coluna esquerda — texto */
@@ -264,34 +218,63 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   color: var(--ink);
 }
 
-/* Foto — SEM container: a foto sangra direto no fundo da hero e a base
-   dissolve no off-white (fade vertical). Sem borda evidenciando o corte,
-   os braços "emergem" do fundo em vez de parecerem truncados numa caixa. */
+/* Conjunto do retrato: legenda (título) em cima + o QUADRO embaixo.
+   align-self: end + margin 0 → a base do quadro encosta na divisa da hero */
 .hero__figure {
   position: relative;
   z-index: 2;
   align-self: end;
   justify-self: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 468px;
   margin: 0;
-  animation: fadeUp 1.3s .4s both;
+  display: flex;
+  flex-direction: column;
+  animation: fadeUp 1.2s .35s both;
 }
-.hero__figure img {
-  display: block;
+/* Legenda no alto, estilo título de obra */
+.hero__figure-label {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px; padding-left: 2px;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.hero__figure-line { width: 24px; height: 1px; background: var(--accent); }
+
+/* QUADRO literal — moldura de galeria com a foto dentro. A pessoa preenche
+   o quadro e os braços encostam na moldura = enquadrado (não cortado).
+   Moldura dupla (borda externa + filete interno) no bronze da página. */
+.hero__frame {
+  position: relative;
   width: 100%;
-  height: auto;
-  max-height: calc(100dvh - 150px);
-  object-fit: contain;
-  object-position: bottom;
-  /* Fade VERTICAL na base: a parte de baixo (braços cruzados / cotovelos)
-     dissolve no fundo sólido off-white. Como o fundo é uma cor chapada,
-     a transição é absorvida e o corte fica invisível. */
-  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 32%);
-  mask-image: linear-gradient(to top, transparent 0%, #000 32%);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  /* "tela" do quadro: mesma cor do fundo da página (a foto parece sair dele) */
+  background: var(--bg);
+  border: 1px solid rgba(131,102,54,.55);
+  box-shadow: 0 26px 54px -30px rgba(60,50,35,.30);
+}
+/* Filete interno — dá o ar de moldura/passe-partout de galeria */
+.hero__frame::after {
+  content: "";
+  position: absolute; inset: 9px;
+  border: 1px solid rgba(131,102,54,.30);
+  z-index: 3;
+  pointer-events: none;
+}
+.hero__frame img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%;
+  z-index: 1;
 }
 
 @media (max-width: 900px) {
+  /* Mobile: painel deixa de ser absoluto e vira bloco de imagem no topo */
   .hero {
     height: auto;
     min-height: auto;
@@ -299,19 +282,24 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
     padding-bottom: 0;
   }
   .hero__inner {
+    height: auto;
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 8px;
   }
-  .hero__left { padding-bottom: 24px; padding-top: 24px; }
+  .hero__left {
+    padding-bottom: 24px; padding-top: 24px;
+  }
   .hero__title .line:nth-child(2) { padding-left: clamp(20px, 6vw, 60px); }
   .hero__title .line:nth-child(4) { padding-left: 0; }
+
   .hero__figure {
     max-width: 340px;
-    margin: 0 auto 24px;
+    /* sem margem inferior → base do quadro encosta na divisa do Método */
+    margin: 0 auto;
     justify-self: center;
   }
-  .hero__monogram { font-size: clamp(220px, 60vw, 360px); top: auto; bottom: 0; right: -10%; }
-  .hero__ring { width: 80vw; right: -20vw; bottom: 4%; }
+  .hero__figure-label { padding-left: 4px; }
+
   .hero__stats {
     grid-template-columns: 1fr 1fr;
     gap: 18px;
@@ -819,11 +807,7 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   .hero { padding-top: 4px; }
   .hero__left { padding-top: 8px; padding-bottom: 16px; gap: 16px; }
   .hero__lede { font-size: 14.5px; line-height: 1.65; }
-  .hero__figure { max-width: 300px; }
-  .hero__caption { padding: 28px 16px 12px; }
-  .hero__caption-name { font-size: 16px; }
-  .hero__monogram { font-size: clamp(180px, 56vw, 280px); bottom: -2%; right: -8%; }
-  .hero__ring { width: 92vw; right: -24vw; bottom: 0; }
+  .hero__figure { max-width: 320px; }
 
   .hero__stats { grid-template-columns: 1fr 1fr; gap: 14px 22px; padding-top: 16px; }
   .hero__stats div:last-child { grid-column: 1 / -1; }

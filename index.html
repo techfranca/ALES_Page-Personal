@@ -36,11 +36,6 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <span class="hero__monogram">AS</span>
-      <span class="hero__ring"></span>
-    </div>
-
     <div class="hero__inner">
       <div class="hero__left">
         <div class="hero__meta">
@@ -83,12 +78,19 @@
         </dl>
       </div>
 
+      <!-- Foto grande sem fundo + quadrados geométricos (no lugar do
+           monograma/anel antigos). O quadrado da FRENTE bate sobre o braço
+           cortado: por oclusão, o braço parece continuar atrás dele. -->
       <figure class="hero__figure">
-        <img src="public/alesantossemfundo.png" alt="Ale Santos, personal trainer" />
+        <span class="hero__figure-label">
+          <span class="hero__figure-line"></span>
+          <span>Educador Físico</span>
+        </span>
+        <div class="hero__frame">
+          <img src="public/alesantossemfundo.png" alt="Ale Santos, personal trainer" />
+        </div>
       </figure>
     </div>
-
-    <span class="hero__divider" aria-hidden="true"></span>
   </section>
 
   <!-- MÉTODO -->
