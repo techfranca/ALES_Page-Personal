@@ -1,1 +1,5 @@
 .vercel
+
+# artefatos locais
+.playwright-mcp/
+*.local.png
