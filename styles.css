@@ -611,6 +611,12 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   color: var(--ink);
 }
 .plan--featured .plan__price-value { color: var(--accent-2); }
+.plan__price-note {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin-top: 2px;
+}
 
 .plan__cta {
   display: inline-flex;
