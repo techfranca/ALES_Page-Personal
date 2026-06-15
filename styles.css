@@ -264,67 +264,31 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   color: var(--ink);
 }
 
-/* Foto — retrato emoldurado: a foto é tratada como FOTOGRAFIA dentro de um
-   quadro, não como recorte solto. O corte dos braços vira enquadramento
-   natural (como em qualquer retrato), sem precisar de blur/máscara. */
+/* Foto — SEM container: a foto sangra direto no fundo da hero e a base
+   dissolve no off-white (fade vertical). Sem borda evidenciando o corte,
+   os braços "emergem" do fundo em vez de parecerem truncados numa caixa. */
 .hero__figure {
   position: relative;
   z-index: 2;
   align-self: end;
-  justify-self: end;
+  justify-self: center;
   width: 100%;
-  max-width: 392px;
-  aspect-ratio: 4 / 5;
-  margin: 0 0 clamp(20px, 4vw, 48px);
-  overflow: hidden;
-  /* Mesmo branco dos cards de plano (#fffdf9) — coerência com o resto
-     da página; as zonas transparentes do PNG mostram esse fundo limpo */
-  background: #fffdf9;
-  border: 1px solid var(--line);
-  box-shadow: 0 18px 40px -28px rgba(60,50,35,.18);
+  max-width: 420px;
+  margin: 0;
   animation: fadeUp 1.3s .4s both;
 }
 .hero__figure img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Enquadra do peito/ombros pra cima; cotovelos saem pela moldura = natural */
-  object-position: center 8%;
-}
-/* Filete inferior do quadro em bronze — assinatura de retrato/galeria */
-.hero__figure::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 3px;
-  background: var(--accent);
-  z-index: 3;
-}
-
-/* Legenda do retrato — faixa discreta na base do quadro (estilo galeria) */
-.hero__caption {
-  position: absolute;
-  left: 0; right: 0; bottom: 3px; /* acima do filete bronze */
-  z-index: 2;
-  display: grid;
-  gap: 2px;
-  padding: 32px 18px 14px;
-  /* Véu claro só na base p/ legenda legível sobre a camiseta escura */
-  background: linear-gradient(to top, rgba(255,253,249,.97) 0%, rgba(255,253,249,.85) 55%, transparent 100%);
-}
-.hero__caption-name {
-  font-family: var(--serif);
-  font-size: 18px;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  line-height: 1;
-}
-.hero__caption-role {
-  font-size: 9.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
+  height: auto;
+  max-height: calc(100dvh - 150px);
+  object-fit: contain;
+  object-position: bottom;
+  /* Fade VERTICAL na base: a parte de baixo (braços cruzados / cotovelos)
+     dissolve no fundo sólido off-white. Como o fundo é uma cor chapada,
+     a transição é absorvida e o corte fica invisível. */
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 32%);
+  mask-image: linear-gradient(to top, transparent 0%, #000 32%);
 }
 
 @media (max-width: 900px) {
