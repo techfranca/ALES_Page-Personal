@@ -289,10 +289,21 @@ ol, ul { margin: 0; padding: 0; list-style: none; }
   object-fit: contain;
   object-position: bottom;
   /* Sombra quente suave: assenta a figura no branco sem peso */
-  filter: drop-shadow(0 18px 28px rgba(60,50,35,.22));
+  filter: drop-shadow(0 18px 28px rgba(60,50,35,.18));
   position: relative;
   z-index: 2;
   margin-bottom: -1px; /* encosta exatamente na divisa */
+  /* Máscara de fade nas laterais: os cotovelos batem na borda do arquivo,
+     então dissolvem suavemente no branco em vez de cortar reto.
+     Vertical: leve fade na base p/ a figura não terminar em linha dura. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 11%, #000 89%, transparent 100%),
+    linear-gradient(to bottom, #000 88%, transparent 100%);
+  mask-composite: intersect;
 }
 
 /* Sombra de chão — elipse sob a base, dá apoio à figura no fundo claro */
